@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\StudySpehere_Exam.props" />
+</Project>
