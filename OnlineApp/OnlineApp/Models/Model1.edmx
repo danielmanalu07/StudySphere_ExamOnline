@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBEXAMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="ad_id" />
+          </Key>
+          <Property Name="ad_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ad_name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ad_password" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="cat_id" />
+          </Key>
+          <Property Name="cat_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cat_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cat_fk_ad_id" Type="int" />
+          <Property Name="cat_encrypted_string" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Exam">
+          <Key>
+            <PropertyRef Name="ex_id" />
+          </Key>
+          <Property Name="ex_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ex_date" Type="datetime" />
+          <Property Name="ex_fk_stu" Type="int" />
+          <Property Name="ex_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ex_score" Type="int" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="qu_id" />
+          </Key>
+          <Property Name="qu_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="qu_text" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="opA" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="opB" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="opC" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="opD" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cop" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="q_fk_catid" Type="int" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="st_id" />
+          </Key>
+          <Property Name="st_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="st_name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="st_password" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="st_image" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Category__cat_fk__239E4DCF">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="ad_id" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="cat_fk_ad_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Exam__ex_fk_stu__1BFD2C07">
+          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="st_id" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="ex_fk_stu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Questions__q_fk___24927208">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="cat_id" />
+            </Principal>
+            <Dependent Role="Questions">
+              <PropertyRef Name="q_fk_catid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBEXAMModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exam" EntityType="Self.Exam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Category__cat_fk__239E4DCF" Association="Self.FK__Category__cat_fk__239E4DCF">
+            <End Role="Admin" EntitySet="Admin" />
+            <End Role="Category" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Exam__ex_fk_stu__1BFD2C07" Association="Self.FK__Exam__ex_fk_stu__1BFD2C07">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Exam" EntitySet="Exam" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Questions__q_fk___24927208" Association="Self.FK__Questions__q_fk___24927208">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBEXAMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="ad_id" />
+          </Key>
+          <Property Name="ad_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ad_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ad_password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Categories" Relationship="DBEXAMModel.FK__Category__cat_fk__239E4DCF" FromRole="Admin" ToRole="Category" />
+        </EntityType>
+        <EntityType Name="Exam">
+          <Key>
+            <PropertyRef Name="ex_id" />
+          </Key>
+          <Property Name="ex_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ex_date" Type="DateTime" Precision="3" />
+          <Property Name="ex_fk_stu" Type="Int32" />
+          <Property Name="ex_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ex_score" Type="Int32" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__Exam__ex_fk_stu__1BFD2C07" FromRole="Exam" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="qu_id" />
+          </Key>
+          <Property Name="qu_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="qu_text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="opA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="opB" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="opC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="opD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="q_fk_catid" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="DBEXAMModel.FK__Questions__q_fk___24927208" FromRole="Question" ToRole="Category" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="st_id" />
+          </Key>
+          <Property Name="st_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="st_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="st_password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="st_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Exams" Relationship="Self.FK__Exam__ex_fk_stu__1BFD2C07" FromRole="Student" ToRole="Exam" />
+        </EntityType>
+        <Association Name="FK__Exam__ex_fk_stu__1BFD2C07">
+          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="st_id" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="ex_fk_stu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBEXAMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="Exams" EntityType="Self.Exam" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <AssociationSet Name="FK__Exam__ex_fk_stu__1BFD2C07" Association="Self.FK__Exam__ex_fk_stu__1BFD2C07">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Exam" EntitySet="Exams" />
+          </AssociationSet>
+          <EntitySet Name="Categories" EntityType="DBEXAMModel.Category" />
+          <AssociationSet Name="FK__Category__cat_fk__239E4DCF" Association="DBEXAMModel.FK__Category__cat_fk__239E4DCF">
+            <End Role="Admin" EntitySet="Admins" />
+            <End Role="Category" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Questions__q_fk___24927208" Association="DBEXAMModel.FK__Questions__q_fk___24927208">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="cat_id" />
+          </Key>
+          <Property Name="cat_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cat_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cat_fk_ad_id" Type="Int32" />
+          <NavigationProperty Name="Admin" Relationship="DBEXAMModel.FK__Category__cat_fk__239E4DCF" FromRole="Category" ToRole="Admin" />
+          <NavigationProperty Name="Questions" Relationship="DBEXAMModel.FK__Questions__q_fk___24927208" FromRole="Category" ToRole="Question" />
+          <Property Name="cat_encrypted_string" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK__Category__cat_fk__239E4DCF">
+          <End Type="DBEXAMModel.Admin" Role="Admin" Multiplicity="0..1" />
+          <End Type="DBEXAMModel.Category" Role="Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="ad_id" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="cat_fk_ad_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Questions__q_fk___24927208">
+          <End Type="DBEXAMModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="DBEXAMModel.Question" Role="Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="cat_id" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="q_fk_catid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBEXAMModelStoreContainer" CdmEntityContainer="DBEXAMEntities">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="DBEXAMModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="ad_id" ColumnName="ad_id" />
+                <ScalarProperty Name="ad_name" ColumnName="ad_name" />
+                <ScalarProperty Name="ad_password" ColumnName="ad_password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exams">
+            <EntityTypeMapping TypeName="DBEXAMModel.Exam">
+              <MappingFragment StoreEntitySet="Exam">
+                <ScalarProperty Name="ex_id" ColumnName="ex_id" />
+                <ScalarProperty Name="ex_date" ColumnName="ex_date" />
+                <ScalarProperty Name="ex_fk_stu" ColumnName="ex_fk_stu" />
+                <ScalarProperty Name="ex_name" ColumnName="ex_name" />
+                <ScalarProperty Name="ex_score" ColumnName="ex_score" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="DBEXAMModel.Question">
+              <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="q_fk_catid" ColumnName="q_fk_catid" />
+                <ScalarProperty Name="qu_id" ColumnName="qu_id" />
+                <ScalarProperty Name="qu_text" ColumnName="qu_text" />
+                <ScalarProperty Name="opA" ColumnName="opA" />
+                <ScalarProperty Name="opB" ColumnName="opB" />
+                <ScalarProperty Name="opC" ColumnName="opC" />
+                <ScalarProperty Name="opD" ColumnName="opD" />
+                <ScalarProperty Name="Cop" ColumnName="Cop" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="DBEXAMModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="st_id" ColumnName="st_id" />
+                <ScalarProperty Name="st_name" ColumnName="st_name" />
+                <ScalarProperty Name="st_password" ColumnName="st_password" />
+                <ScalarProperty Name="st_image" ColumnName="st_image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="DBEXAMModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="cat_encrypted_string" ColumnName="cat_encrypted_string" />
+                <ScalarProperty Name="cat_fk_ad_id" ColumnName="cat_fk_ad_id" />
+                <ScalarProperty Name="cat_name" ColumnName="cat_name" />
+                <ScalarProperty Name="cat_id" ColumnName="cat_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

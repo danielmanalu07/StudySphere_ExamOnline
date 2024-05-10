@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="65f836f75e0f4d8f96e0f68116851143" Name="Diagram1">
+        <EntityTypeShape EntityType="DBEXAMModel.Admin" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBEXAMModel.Exam" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBEXAMModel.Question" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBEXAMModel.Student" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="DBEXAMModel.FK__Exam__ex_fk_stu__1BFD2C07" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DBEXAMModel.Category" Width="1.5" PointX="3" PointY="8.625" />
+        <AssociationConnector Association="DBEXAMModel.FK__Category__cat_fk__239E4DCF" />
+        <AssociationConnector Association="DBEXAMModel.FK__Questions__q_fk___24927208" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

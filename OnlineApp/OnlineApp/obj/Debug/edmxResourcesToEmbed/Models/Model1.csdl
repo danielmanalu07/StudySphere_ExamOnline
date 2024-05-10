@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBEXAMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="ad_id" />
+    </Key>
+    <Property Name="ad_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ad_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ad_password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Categories" Relationship="DBEXAMModel.FK__Category__cat_fk__239E4DCF" FromRole="Admin" ToRole="Category" />
+  </EntityType>
+  <EntityType Name="Exam">
+    <Key>
+      <PropertyRef Name="ex_id" />
+    </Key>
+    <Property Name="ex_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ex_date" Type="DateTime" Precision="3" />
+    <Property Name="ex_fk_stu" Type="Int32" />
+    <Property Name="ex_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ex_score" Type="Int32" />
+    <NavigationProperty Name="Student" Relationship="Self.FK__Exam__ex_fk_stu__1BFD2C07" FromRole="Exam" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="qu_id" />
+    </Key>
+    <Property Name="qu_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="qu_text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="opA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="opB" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="opC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="opD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Cop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="q_fk_catid" Type="Int32" />
+    <NavigationProperty Name="Category" Relationship="DBEXAMModel.FK__Questions__q_fk___24927208" FromRole="Question" ToRole="Category" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="st_id" />
+    </Key>
+    <Property Name="st_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="st_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="st_password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="st_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Exams" Relationship="Self.FK__Exam__ex_fk_stu__1BFD2C07" FromRole="Student" ToRole="Exam" />
+  </EntityType>
+  <Association Name="FK__Exam__ex_fk_stu__1BFD2C07">
+    <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+    <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="st_id" />
+      </Principal>
+      <Dependent Role="Exam">
+        <PropertyRef Name="ex_fk_stu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DBEXAMEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admin" />
+    <EntitySet Name="Exams" EntityType="Self.Exam" />
+    <EntitySet Name="Questions" EntityType="Self.Question" />
+    <EntitySet Name="Students" EntityType="Self.Student" />
+    <AssociationSet Name="FK__Exam__ex_fk_stu__1BFD2C07" Association="Self.FK__Exam__ex_fk_stu__1BFD2C07">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="Exam" EntitySet="Exams" />
+    </AssociationSet>
+    <EntitySet Name="Categories" EntityType="DBEXAMModel.Category" />
+    <AssociationSet Name="FK__Category__cat_fk__239E4DCF" Association="DBEXAMModel.FK__Category__cat_fk__239E4DCF">
+      <End Role="Admin" EntitySet="Admins" />
+      <End Role="Category" EntitySet="Categories" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Questions__q_fk___24927208" Association="DBEXAMModel.FK__Questions__q_fk___24927208">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Question" EntitySet="Questions" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="cat_id" />
+    </Key>
+    <Property Name="cat_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cat_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="cat_fk_ad_id" Type="Int32" />
+    <NavigationProperty Name="Admin" Relationship="DBEXAMModel.FK__Category__cat_fk__239E4DCF" FromRole="Category" ToRole="Admin" />
+    <NavigationProperty Name="Questions" Relationship="DBEXAMModel.FK__Questions__q_fk___24927208" FromRole="Category" ToRole="Question" />
+    <Property Name="cat_encrypted_string" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK__Category__cat_fk__239E4DCF">
+    <End Type="DBEXAMModel.Admin" Role="Admin" Multiplicity="0..1" />
+    <End Type="DBEXAMModel.Category" Role="Category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="ad_id" />
+      </Principal>
+      <Dependent Role="Category">
+        <PropertyRef Name="cat_fk_ad_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Questions__q_fk___24927208">
+    <End Type="DBEXAMModel.Category" Role="Category" Multiplicity="0..1" />
+    <End Type="DBEXAMModel.Question" Role="Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="cat_id" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="q_fk_catid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

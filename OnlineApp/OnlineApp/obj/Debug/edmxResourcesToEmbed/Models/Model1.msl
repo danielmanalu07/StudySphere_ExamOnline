@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBEXAMModelStoreContainer" CdmEntityContainer="DBEXAMEntities">
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="DBEXAMModel.Admin">
+        <MappingFragment StoreEntitySet="Admin">
+          <ScalarProperty Name="ad_id" ColumnName="ad_id" />
+          <ScalarProperty Name="ad_name" ColumnName="ad_name" />
+          <ScalarProperty Name="ad_password" ColumnName="ad_password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Exams">
+      <EntityTypeMapping TypeName="DBEXAMModel.Exam">
+        <MappingFragment StoreEntitySet="Exam">
+          <ScalarProperty Name="ex_id" ColumnName="ex_id" />
+          <ScalarProperty Name="ex_date" ColumnName="ex_date" />
+          <ScalarProperty Name="ex_fk_stu" ColumnName="ex_fk_stu" />
+          <ScalarProperty Name="ex_name" ColumnName="ex_name" />
+          <ScalarProperty Name="ex_score" ColumnName="ex_score" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Questions">
+      <EntityTypeMapping TypeName="DBEXAMModel.Question">
+        <MappingFragment StoreEntitySet="Questions">
+          <ScalarProperty Name="q_fk_catid" ColumnName="q_fk_catid" />
+          <ScalarProperty Name="qu_id" ColumnName="qu_id" />
+          <ScalarProperty Name="qu_text" ColumnName="qu_text" />
+          <ScalarProperty Name="opA" ColumnName="opA" />
+          <ScalarProperty Name="opB" ColumnName="opB" />
+          <ScalarProperty Name="opC" ColumnName="opC" />
+          <ScalarProperty Name="opD" ColumnName="opD" />
+          <ScalarProperty Name="Cop" ColumnName="Cop" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="DBEXAMModel.Student">
+        <MappingFragment StoreEntitySet="Student">
+          <ScalarProperty Name="st_id" ColumnName="st_id" />
+          <ScalarProperty Name="st_name" ColumnName="st_name" />
+          <ScalarProperty Name="st_password" ColumnName="st_password" />
+          <ScalarProperty Name="st_image" ColumnName="st_image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="DBEXAMModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="cat_encrypted_string" ColumnName="cat_encrypted_string" />
+          <ScalarProperty Name="cat_fk_ad_id" ColumnName="cat_fk_ad_id" />
+          <ScalarProperty Name="cat_name" ColumnName="cat_name" />
+          <ScalarProperty Name="cat_id" ColumnName="cat_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
